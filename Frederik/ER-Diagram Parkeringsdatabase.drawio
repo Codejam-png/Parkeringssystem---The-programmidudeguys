@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0" version="29.3.6">
+  <diagram name="Side-1" id="JU_sMP5BXGXZaxa4uhe4">
+    <mxGraphModel dx="1608" dy="842" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="45B_Glbx6PWh3-FihkMH-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Parkeringsbås&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="260" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" value="Type (handicap, gæste eller standard)" vertex="1">
+          <mxGeometry height="50" width="220" x="-10" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-4" edge="1" parent="1" source="8CkLQr1A2pmp1aTZO_ns-1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="45B_Glbx6PWh3-FihkMH-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="330" y="440" as="sourcePoint" />
+            <mxPoint x="380" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Parkeringsplads" vertex="1">
+          <mxGeometry height="60" width="120" x="603.78" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" value="Lokation" vertex="1">
+          <mxGeometry height="35" width="120" x="603.78" y="412.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="&lt;div&gt;Ejer/&lt;/div&gt;&lt;div&gt;tilknyttet virksomhed&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="130" x="598.78" y="242.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-9" edge="1" parent="1" source="8CkLQr1A2pmp1aTZO_ns-5" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="8CkLQr1A2pmp1aTZO_ns-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="593.78" y="445.5" as="sourcePoint" />
+            <mxPoint x="643.78" y="395.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-10" edge="1" parent="1" source="8CkLQr1A2pmp1aTZO_ns-6" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="8CkLQr1A2pmp1aTZO_ns-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="593.78" y="445.5" as="sourcePoint" />
+            <mxPoint x="643.78" y="395.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-11" parent="1" style="rhombus;whiteSpace=wrap;html=1;rotation=0;" value="Er en del af" vertex="1">
+          <mxGeometry height="80" width="146" x="414" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="8CkLQr1A2pmp1aTZO_ns-14" edge="1" parent="1" source="45B_Glbx6PWh3-FihkMH-1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="8CkLQr1A2pmp1aTZO_ns-11" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="460" y="340" as="sourcePoint" />
+            <mxPoint x="510" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-2" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Ledig&lt;br&gt;(ja eller nej)" vertex="1">
+          <mxGeometry height="60" width="120" x="260" y="232.5" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-3" edge="1" parent="1" source="45B_Glbx6PWh3-FihkMH-1" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="f8X-02R2fK1H0DejphIR-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="390" y="410" as="sourcePoint" />
+            <mxPoint x="440" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="&lt;div&gt;Lokation&lt;br&gt;(R1P9)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="47" width="100" x="270" y="412.5" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-6" edge="1" parent="1" source="f8X-02R2fK1H0DejphIR-4" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="45B_Glbx6PWh3-FihkMH-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="430" y="440" as="sourcePoint" />
+            <mxPoint x="480" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div&gt;Lokation som koordinater&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Her vises &quot;Række 1, plads 9&quot;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="93" width="140" x="150" y="458.5" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-12" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="253" y="476" as="sourcePoint" />
+            <mxPoint x="273" y="456" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="M" vertex="1">
+          <mxGeometry height="30" width="60" x="360" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="60" x="560" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-16" edge="1" parent="1" source="8CkLQr1A2pmp1aTZO_ns-11" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="8CkLQr1A2pmp1aTZO_ns-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="500" y="430" as="sourcePoint" />
+            <mxPoint x="550" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-18" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Ejer er blot en enkelt ejer, altså en virksomhed der ejer. Hvis der var flere ejere ville databasen ikke opfylde 1. NF." vertex="1">
+          <mxGeometry height="70" width="230" x="548.78" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="f8X-02R2fK1H0DejphIR-20" edge="1" parent="1" source="f8X-02R2fK1H0DejphIR-18" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="638.78" y="232.5" as="sourcePoint" />
+            <mxPoint x="664" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
