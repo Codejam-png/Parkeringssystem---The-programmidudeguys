@@ -1,5 +1,7 @@
 import socket
 
+## to run in cmd write: py client.py
+
 s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 s.connect((socket.gethostname(), 8080))
 pladspreference = "elbil"
@@ -12,3 +14,4 @@ while True:
     full_msg += msg.decode("utf-8")
 print(full_msg)
 s.close()
+
