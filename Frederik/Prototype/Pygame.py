@@ -16,8 +16,8 @@ ObjectFarveListe = []
 Screenx = 6000
 Screeny = 1260
 ScreenSize = Screenx*Screeny
-ObjectLengthX = 1
-ObjectLengthY = 1
+ObjectLengthX = 1000
+ObjectLengthY = 1000
 ObjectSize = ObjectLengthX*ObjectLengthY
 ObjectYpos = 0
 ObjectXpos = 0
@@ -109,25 +109,27 @@ with Image.open("ImageForRoconizion.png") as billede:
         # Lige nu fungerer det, vi får en liste med alle pixels, deres farver og deres score de passer dog ikke sammen og det er håbløst ineffektiv og hardware intensivt. Denne liste skal også omdannes til en liste af dicts for at vi rigtig kan bruge den (tror jeg) 
         if (FinalScore != 0.000):
             #if(FinalScore <=0.3):
-            ScoreList.append(str(FinalScore) + "; " + str(FinalScoreRGBValue) + "; " + str(FinalScorePixel)) #lige nu fungerer dette halvt. Det ser rigtigt ud, men for at kunne bruge det skal "ScoreList" laves til en liste af dictionaries. "str(FinalScore) + "; " + str(FinalScoreRGBValue) + "; " + str(FinalScorePixelPlacement)" skal altså derfor laves til et dict. Når dict logikken er sat op burde hver finalScore have både en farve og en placering koblet på sig som så derefter kan "tegnes" på skærmen
+            ScoreList.append({"FinalScore":FinalScore, "R":r, "G":g, "B":b, "XPos":FinalScorePixel[0], "YPos":FinalScorePixel[1]}) #lige nu fungerer dette halvt. Det ser rigtigt ud, men for at kunne bruge det skal "ScoreList" laves til en liste af dictionaries. "str(FinalScore) + "; " + str(FinalScoreRGBValue) + "; " + str(FinalScorePixelPlacement)" skal altså derfor laves til et dict. Når dict logikken er sat op burde hver finalScore have både en farve og en placering koblet på sig som så derefter kan "tegnes" på skærmen
 
             
         Index=Index+1
     print(ScoreList)
     print(rControl,gControl,bControl)
-'''
+
+    x = 0
     for i in ScoreList:  
     
+        
         ob = i
         
         Ypos = (x*1 >= Screenx*(Ypos+1)/1 and 1) + Ypos
         Xpos = x*1 - Screenx*Ypos/1
-        pygame.draw.rect(Window, (ScoreList[i][2]), [[ScoreList[i]["PlaceringX"], ScoreList[i]["PlaceringY"], 1, 1]], 1)#dette er pseudo. Formålet er at vi genskaber billedet med de værdier vi har fra scorelist, altså farve og placering. Den skal laves til dict før fungerer
-        x=x+1
+        pygame.draw.rect(Window, (ScoreList[x]["R"],ScoreList[x]["G"],ScoreList[x]["B"]), [[ScoreList[x]["XPos"], ScoreList[x]["YPos"], 1, 1]], 1)#Formålet er at vi genskaber billedet med de værdier vi har fra scorelist, altså farve og placering. Den skal laves til dict før fungerer
+        x=x+1 # vores iterator
         
     pygame.draw.rect(Window, (rControl, bControl, gControl), [ControlPointx,ControlPointy,ControlPointWidthx,ControlPointWidthy],int(ControlPointWidthy/2))
     pygame.display.update()
-'''
+
 
 '''
 Window = pygame.display.set_mode((Screenx, Screeny))
