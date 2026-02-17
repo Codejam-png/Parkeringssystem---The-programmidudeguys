@@ -121,7 +121,7 @@ with Image.open("William/Min egen prototype/ImageForRoconizion.png") as billede:
         gScore = abs((g-gControl)/gControl)
         bScore = abs((b-bControl)/bControl)
         FinalScore = (rScore+gScore+bScore)/3
-        if (FinalScore != 0.000 and FinalScore < 0.30):
+        if (FinalScore != 0.000 and FinalScore < PrecisionFactor*2):
             
             ScoreList.append(i[3])
             Index=Index+1
