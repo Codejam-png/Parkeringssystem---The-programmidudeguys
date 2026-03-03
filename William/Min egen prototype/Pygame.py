@@ -4,7 +4,6 @@ import pygame, sys
 import random
 from pygame.locals import *
 
-
 class Object:
     def __init__(self,R,G,B):
         self.colorR = R
@@ -16,8 +15,8 @@ ObjectFarveListe = []
 Screenx = 600
 Screeny = 600
 ScreenSize = Screenx*Screeny
-ObjectLengthx = 60
-ObjectLengthy = 60
+ObjectLengthx = 10
+ObjectLengthy = 10
 ObjectAmountX = Screenx/ObjectLengthx
 ObjectAmountY = Screeny/ObjectLengthy
 ObjectSize = ObjectLengthy*ObjectLengthx
