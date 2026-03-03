@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>parkeringsplads</title>
+    <script>
+       function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else{
+                alert("Geolocation is needed for this website to work.");
+            }
+       } 
+       function showPosition(position){
+            document.getElementById("latitude").value = position.coords.Latitude;
+            document.getElementById("longitude").value = position.coords.Longitude;
+            document.getElementById("locationForm").submit();
+       }
+    </script>
+</head>
+<body onload="getLocation()">
+    <h1>Parkeringsplads</h1>
+    <form action="/locationdata" method="POST" id="locationForm">
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+    </form>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import sqlite3
 
 båsliste = [
-    {"AfstandFI": 10, "BLokationKode": "A1", "Ledig": 1, "Type": "almindelig"},
+    {"AfstandFI": 10, "BLokationKode": 'A1', "Ledig": 1, "Type": "almindelig"},
     {"AfstandFI": 10, "BLokationKode": "A2", "Ledig": 1, "Type": "almindelig"},
     {"AfstandFI": 10, "BLokationKode": "A3", "Ledig": 1, "Type": "almindelig"},
     {"AfstandFI": 10, "BLokationKode": "A4", "Ledig": 1, "Type": "almindelig"},
@@ -310,9 +310,6 @@ båsliste = [
 ]
 
 
-
-
-
 def get_db_connection():
     conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
@@ -331,14 +328,14 @@ def init_db():
         """
     )
     conn.commit()
-    if conn.execute("SELECT COUNT(*) FROM parkerings_system").fetchall()[0][0] == 0:
+    if conn.execute("SELECT COUNT(*) FROM ParkeringsDatabase").fetchall()[0][0] == 0:
         for bås in båsliste:
             conn.execute(
-                """
-                INSERT INTO parkerings_system (AfstandFI, BLokationKode, Ledig, Type) 
-                VAlUES ("""+{bås["AfstandFI"]}+"""), '"""+{bås["BLokationKode"]}+"""', """+{bås["Ledig"]}+""", '"""+{bås["Type"]}+"""');
+                f"""
+                INSERT INTO ParkeringsDatabase (AfstandFI, BLokationKode, Ledig, Type) 
+                VAlUES ({bås['AfstandFI']},"{bås['BLokationKode']}",{bås['Ledig']},"{bås['Type']}");
                 """
             )
             conn.commit() 
     conn.close()
-
+init_db()
