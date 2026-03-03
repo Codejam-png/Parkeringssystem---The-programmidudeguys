@@ -1,0 +1,36 @@
+Fra denne pixel til denne pixel
+
+
+Den her bås er denne farvekode
+
+Kører billedet igennem en gang og siger: 
+
+
+A1:
+0 0 0
+#00FFCC
+
+A2:
+1 0 0
+
+A3:
+2 0 0
+
+A4:
+3 0 0
+
+A5:
+400
+
+A6:
+500
+
+A7:
+600
+
+A8:
+700
+
+A9:
+800
+
