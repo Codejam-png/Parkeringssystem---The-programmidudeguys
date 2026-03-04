@@ -6,7 +6,7 @@ s.bind((socket.gethostname(), 8080))
 s.listen(5)
 
 def get_db_connection():
-    conn = sqlite3.connect("Stefan/database.db")
+    conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -15,29 +15,29 @@ def send_notification(message, client_socket):
 
 def bestePladsOgBesked(brugerpreference, conn):
     if brugerpreference == "elbil":
-        plads = conn.execute("SELECT * FROM parkerings_system WHERE plads_type = 'elbil' AND status = 'ledig' ORDER BY id LIMIT 1;").fetchone()["plads_code"]
+        plads = conn.execute("SELECT * FROM ParkeringsDatabase WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
         if plads != None:
             message = "Der er en ledig elbil plads på " + plads
             return message
-        plads = conn.execute("SELECT * FROM parkerings_system WHERE plads_type = 'almindelig' AND status = 'ledig' ORDER BY id LIMIT 1;").fetchone()["plads_code"]
+        plads = conn.execute("SELECT * FROM ParkeringsDatabase WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
         if plads != None:
             message = "Der er ingen ledige elbil pladser pt. Den bedste alternative plads er " + plads
             return message
         return "Der er desværre igen ledige pladser."
     
     elif brugerpreference == "handicap":
-        plads = conn.execute("SELECT * FROM parkerings_system WHERE plads_type = 'handicap' AND status = 'ledig' ORDER BY id LIMIT 1;").fetchone()["plads_code"]
+        plads = conn.execute("SELECT * FROM ParkeringsDatabase WHERE Type = 'handicap' AND LLedig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
         if plads != None:
             message = "Der er en ledig handicap plads på " + plads
             return message
-        plads = conn.execute("SELECT * FROM parkerings_system WHERE plads_type = 'almindelig' AND status = 'ledig' ORDER BY id LIMIT 1;").fetchone()["plads_code"]
+        plads = conn.execute("SELECT * FROM ParkeringsDatabase WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
         if plads != None:
             message = "Der er ingen ledige handicap pladser pt. Den bedste alternative plads er " + plads
             return message
         return "Der er desværre igen ledige pladser."
     
     else:
-        plads = conn.execute("SELECT * FROM parkerings_system WHERE plads_type = 'almindelig' AND status = 'ledig' ORDER BY id LIMIT 1;").fetchone()["plads_code"]
+        plads = conn.execute("SELECT * FROM ParkeringsDatabase WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
         if plads != None:
             message = "Der er en ledig plads på " + plads
             return message
