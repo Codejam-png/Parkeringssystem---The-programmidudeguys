@@ -32,7 +32,7 @@ ObjektDict = {
 }
 
 
-with Image.open("William/Min egen prototype/Parkeringstest.png") as billede:
+with Image.open("William/Farlig parkeringspladsbillede.png") as billede:
     billede = billede.convert("RGB")
     bredde, højde = billede.size
     for y in range(højde):
@@ -40,5 +40,8 @@ with Image.open("William/Min egen prototype/Parkeringstest.png") as billede:
             Farve = billede.getpixel((x, y))
             if (Farve in Color):
                 ObjektDict[Color[Farve]].append((x,y))
-                print(Farve)
-                
+                count = count + 1
+    print(len((A1Objekt)))
+    print(len((A2Objekt)))
+    print(len((A3Objekt)))
+    print(len((A4Objekt)))
