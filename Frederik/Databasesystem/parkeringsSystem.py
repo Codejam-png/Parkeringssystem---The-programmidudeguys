@@ -1,6 +1,6 @@
 import socket
 import sqlite3
-from flask import jsonify
+
 
 #DETTE ER SERVEREREN
 
@@ -17,36 +17,42 @@ def send_notification(message, client_socket):
      client_socket.send(bytes(message, "utf-8"))
 
 def bedstePladsOgBesked(brugerpreference, conn):    
-    if brugerpreference == "elbil":
+
+    #almindelig
+    if brugerpreference == "almindelig":
+        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None: #Henter data fra databasen og ser om der findes noget på den prefererede plads som sql-sætningen definerer. Hvis der gør det så fortsæt, hvis ikke så sig "ingen plads" (i return sætningen)
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0]
+            message = f"Der er en ledig plads paa {plads}"
+            return message
+        return "Der er desvaerre ingen ledige pladser af nogen type."
+
+    #elbil
+    elif brugerpreference == "elbil":
         if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None:
-            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0] #Vi henter dataen ud fra select sætningen. Grunden til [0] er for at vi kun vælger "sqlite3.Row object"(tror vi) og dataen vises korrekt, syntaksen er fundet her: https://stackoverflow.com/questions/76354183/database-returns-sqlite3-row-object-at-0x0000019494a725f0-instead-of-data
             
-            message = "Der er en ledig elbil plads på " + plads
+            message = f"Der er en ledig elbilplads paa {plads}"
             return message
         
-        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() == None:
-            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
-            message = "Der er ingen ledige elbil pladser pt. Den bedste alternative plads er " + plads
+        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() == None: #Henter data fra databasen og ser om der findes noget på den prefererede plads som sql-sætningen definerer. Hvis der ikke gør det (==None) så søger den istedet i almindelig og giver den tilgængelige almindelige plads
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0]
+            message = f"Der er desværre ingen ledige elbilpladser pt. Den bedste alternative plads er {plads}"
             return message
-        return "Der er desværre igen ledige pladser."
+        return "Der er desvaerre ingen ledige pladser af nogen type."
     
+    #handicap
     elif brugerpreference == "handicap":
-        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'handicap' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
-        if plads != None:
-            message = "Der er en ledig handicap plads på " + plads
+        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'handicap' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None: #Henter data fra databasen og tjekker om der findes noget på den prefererede plads som sql-sætningen definerer. Hvis der gør det så fortsæt, hvis ikke så gå ned i elif som søger almindelige.
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'handicap' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0] #Vi henter dataen ud fra select sætningen. Grunden til [0] er for at vi kun vælger "sqlite3.Row object"(tror vi) og dataen vises korrekt, syntaksen er fundet her: https://stackoverflow.com/questions/76354183/database-returns-sqlite3-row-object-at-0x0000019494a725f0-instead-of-data
+            message = f"Der er en ledig handicapplads paa {plads}"
             return message
-        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
-        if plads != None:
-            message = "Der er ingen ledige handicap pladser pt. Den bedste alternative plads er " + plads
+        
+        elif conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'handicap' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() == None: #Henter data fra databasen og ser om der findes noget på den prefererede plads som sql-sætningen definerer. Hvis der ikke gør det (==None) så søger den istedet i almindelig og giver den tilgængelige almindelige plads
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0]
+            message = f"Der er desvaerre ingen ledige handicappladser pt. Den bedste alternative plads er {plads}"
             return message
-        return "Der er desværre igen ledige pladser."
+        return "Der er desvaerre ingen ledige pladser af nogen type."
     
-    #else:
-    if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None:
-        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
-        message = "Der er en ledig plads på " + plads
-        return message
-    return "Der er desværre ingen ledige pladser."
 
 
 # programmet skal afvente input fra brugeren på internettet

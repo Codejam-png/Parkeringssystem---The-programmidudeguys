@@ -18,11 +18,25 @@
        }
     </script>
 </head>
-<body onload="getLocation()">
+<body>
     <h1>Parkeringsplads</h1>
+
+    <p>Vælg preference for plads</p>
+    <form action="/" method="POST" id="brugerpreference">
+        <input type="radio" id="almindelig" name="pladspref" value="almindelig"> <!--radio buttons syntaks taget fra eksemplet heri https://www.w3schools.com/html/html_forms.asp-->
+        <label for="almindelig">Almindelig parkeringsplads</label><br>
+        <input type="radio" id="elbil" name="pladspref" value="elbil">
+        <label for="elbil">Elbil parkeringsplads</label><br>
+        <input type="radio" id="handicap" name="pladspref" value="handicap">
+        <label for="handicap">Handicapparkeringsplads</label> <br>
+        <button type="submit" name="submitknap" formaction="/">Gem preference</button>
+    </form>
+<br>
+    <button onclick="getLocation()" formaction="/locationdata">Find parkeringsplads</button><!--kører formen som spørger efter lokation og sender videre til locationdata og giver pladsen-->
+
     <form action="/locationdata" method="POST" id="locationForm">
         <input type="hidden" id="latitude" name="latitude">
         <input type="hidden" id="longitude" name="longitude">
     </form>
 </body>
-</html>
+</html> <!--mangler: Få sendt brugerpreference fra html over til brugerpreference i client.py vha. form. Lige nu preferenceknap sig "du må ikke, method not allowed" og ingen data sendt til client eller ændret hos client. Få lokationsdata hentet og brugbart så vi kan få den til at sige "*WRONG BUZZER SOUND* Du er for langt væk" hvis man er for langt væk og "*DING CORREKT* Den nærmeste plads er..." når ens position er indenfor skolens koordinater-->
