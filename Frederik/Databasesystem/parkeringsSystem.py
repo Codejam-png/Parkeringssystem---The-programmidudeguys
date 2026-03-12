@@ -1,5 +1,6 @@
 import socket
 import sqlite3
+from flask import jsonify
 
 #DETTE ER SERVEREREN
 
@@ -15,37 +16,37 @@ def get_db_connection():
 def send_notification(message, client_socket):    
      client_socket.send(bytes(message, "utf-8"))
 
-def bedstePladsOgBesked(brugerpreference, conn):
-    '''
+def bedstePladsOgBesked(brugerpreference, conn):    
     if brugerpreference == "elbil":
-        plads = conn.execute("SELECT * FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
-        if plads != None:
+        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None:
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
+            
             message = "Der er en ledig elbil plads på " + plads
             return message
-        plads = conn.execute("SELECT * FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
-        if plads != None:
+        
+        if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'elbil' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() == None:
+            plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
             message = "Der er ingen ledige elbil pladser pt. Den bedste alternative plads er " + plads
             return message
         return "Der er desværre igen ledige pladser."
     
     elif brugerpreference == "handicap":
-        plads = conn.execute("SELECT * FROM ParkeringsBås WHERE Type = 'handicap' AND LLedig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
+        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'handicap' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
         if plads != None:
             message = "Der er en ledig handicap plads på " + plads
             return message
-        plads = conn.execute("SELECT * FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
+        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
         if plads != None:
             message = "Der er ingen ledige handicap pladser pt. Den bedste alternative plads er " + plads
             return message
         return "Der er desværre igen ledige pladser."
-    '''
+    
     #else:
-    plads = conn.execute("SELECT * FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()["BLokationKode"]
-    if plads != None:
+    if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None:
+        plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()
         message = "Der er en ledig plads på " + plads
         return message
     return "Der er desværre ingen ledige pladser."
-
 
 
 # programmet skal afvente input fra brugeren på internettet
