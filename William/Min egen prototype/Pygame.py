@@ -3,6 +3,14 @@ from PIL import Image
 import pygame, sys
 import random
 from pygame.locals import *
+import json
+
+
+# import PladsNRpixelsDict.json
+with open("William/Min egen prototype/PladsNRpixelsDict.json", "r") as f:
+    PladsNRpixelsDict = json.load(f)
+
+
 
 class Object:
     def __init__(self,R,G,B):
