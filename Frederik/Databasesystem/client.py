@@ -34,7 +34,7 @@ def vedParkeringPladsen(latitude, longitude):
 def connect_and_receive():
     s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
     s.connect((socket.gethostname(), 8080))
-    pladspreference = "elbil"
+    pladspreference = "handicap"
     s.send(bytes(pladspreference, "utf-8"))
     full_msg = ''
     while True:
