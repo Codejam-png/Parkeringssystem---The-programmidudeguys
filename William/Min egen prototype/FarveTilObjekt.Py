@@ -1,6 +1,6 @@
 from statistics import mean #Giver en nemmere måde at regne gennemsnittet af lister på.
 from PIL import Image
-
+# opdater williams pc
 FarveTilPladsNR = {
     (0,255,0) : "A1",
     (0,254,0) : "A2",
