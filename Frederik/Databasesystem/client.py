@@ -12,29 +12,36 @@ import flask
 
 app = flask.Flask(__name__)
 
-@app.route('/')
-def askforlocation():
-    return flask.render_template('askforlocation.html')
 
-@app.route('/locationdata',methods=['POST'])
+@app.route('/', methods=['POST','GET'])
+def askforlocation():
+    global pladspreference
+    pladspreference = str(flask.request.form.get('pladspref'))
+    return flask.render_template('askforlocation.html', pladsprefHTML = pladspreference)
+
+
+@app.route('/locationdata', methods=['POST'])
 def locationdata():
     #pladspreference = flask.request.form['pladspreference']
-    latitude = flask.request.form['latitude']
-    longitude = flask.request.form['longitude']
+    latitude = flask.request.form.get('latitude')
+    longitude = flask.request.form.get('longitude')
     print(f"location er latitude: {latitude} og longitude: {longitude}")
     if vedParkeringPladsen(latitude, longitude):
-        message =connect_and_receive()
+        message = connect_and_receive()
         return flask.render_template('notification.html', message=message)
     else:
-        return flask.render_template('askforlocation.html')
+        return flask.render_template('askforlocation.html', LOCmessage = "Du er udenfor rækkevidde")
 
-def vedParkeringPladsen(latitude, longitude):
-    return True #sammenlign latitude og longitude med parkeringspladsens koordinater
+def vedParkeringPladsen(latitude, longitude):#sammenlign latitude og longitude med parkeringspladsens koordinater
+    if float(latitude) >= 56.147643 and float(latitude) <= 56.146758 and float(longitude) >= 8.992054 and float(longitude) <= 8.996228: #er kommet hertil
+        return True
+    else:
+        return False
 
 def connect_and_receive():
     s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
     s.connect((socket.gethostname(), 8080))
-    pladspreference = "handicap"
+    global pladspreference #referer til den preference som er sat i app route /.
     s.send(bytes(pladspreference, "utf-8"))
     full_msg = ''
     while True:
