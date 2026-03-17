@@ -10,8 +10,6 @@ import json
 with open("William/Min egen prototype/PladsNRpixelsDict.json", "r") as f:
     PladsNRpixelsDict = json.load(f)
 
-
-
 class Object:
     def __init__(self,R,G,B):
         self.colorR = R

@@ -413,7 +413,7 @@ PladsNRpixelsDict = {
 }
 
 # analyser billedet og placer pixel koordinaterne i PladsNRpixelsDict hvis de har den rigtige farve.
-with Image.open("William/Parkeringsplads som billede.JPG") as billede:
+with Image.open("William/ParkeringspladsMedPladsOgAsfaltMarkering.JPG") as billede:
     billede = billede.convert("RGB")
     bredde, højde = billede.size
     for y in range(højde):
@@ -425,6 +425,41 @@ with Image.open("William/Parkeringsplads som billede.JPG") as billede:
 import json
 with open("William/Min egen prototype/PladsNRpixelsDict.json", "w") as json_file:
     json.dump(PladsNRpixelsDict, json_file)
+
+
+FarveTilAsfaltOmråde = {
+    (255,0,0) : "Asfalt1",
+    (254,0,0) : "Asfalt2",
+    (253,0,0) : "Asfalt3",
+    (252,0,0) : "Asfalt4",
+    (251,0,0) : "Asfalt5",
+    (250,0,0) : "Asfalt6",
+}
+
+AsfaltOmrådepixelsDict = {
+    "Asfalt1" : [],
+    "Asfalt2" : [],
+    "Asfalt3" : [],
+    "Asfalt4" : [],
+    "Asfalt5" : [],
+    "Asfalt6" : [],
+    
+}
+
+# analyser billedet og placer pixel koordinaterne i AsfaltOmrådepixelsDict hvis de har den rigtige farve.
+with Image.open("William/ParkeringspladsMedPladsOgAsfaltMarkering.JPG") as billede:
+    billede = billede.convert("RGB")
+    bredde, højde = billede.size
+    for y in range(højde):
+        for x in range(bredde):
+            Farve = billede.getpixel((x, y))
+            if (Farve in FarveTilAsfaltOmråde):
+                AsfaltOmrådepixelsDict[FarveTilAsfaltOmråde[Farve]].append((x,y))
+# konverter AsfaltOmrådepixelsDict til en json så en anden fil kan importere den
+import json
+with open("William/Min egen prototype/AsfaltOmrådepixelsDict.json", "w") as json_file:
+    json.dump(AsfaltOmrådepixelsDict, json_file)
+
 
 
 
