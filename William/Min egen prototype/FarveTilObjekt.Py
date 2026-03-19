@@ -447,7 +447,7 @@ AsfaltOmrådepixelsDict = {
 }
 
 # analyser billedet og placer pixel koordinaterne i AsfaltOmrådepixelsDict hvis de har den rigtige farve.
-with Image.open("William/ParkeringspladsMedPladsOgAsfaltMarkering.JPG") as billede:
+with Image.open("William/Parkeringsplads med asfalt- og pladsmarkering.jpg") as billede:
     billede = billede.convert("RGB")
     bredde, højde = billede.size
     for y in range(højde):

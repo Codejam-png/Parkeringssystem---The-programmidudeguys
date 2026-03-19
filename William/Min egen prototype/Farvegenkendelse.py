@@ -3,7 +3,6 @@ from PIL import Image
 from flask import json
 import pygame, sys
 import random
-from pygame.locals import *
 import sqlite3
 class Object:
     def __init__(self,R,G,B):
@@ -29,21 +28,24 @@ def Change_db(i,Agenda):
 with open("William/Min egen prototype/PladsNRpixelsDict.json", "r") as f:
     PladsNrpixelsDict = json.load(f)
 
-with open("William/FalskFilPlacering >:( ", "r") as g:
-    KontrolPladsDict = json.load(f)
+with open("William/Min egen prototype/AsfaltOmrådepixelsDict.json", "r") as g:
+    KontrolPladsDict = json.load(g)
 ObjectList = []
 ObjectFarveListe = []
 
-PixelListeKontrol = []
+PixelListeKontrolr = []
+PixelListeKontrolg = []
+PixelListeKontrolb = []
 Pladsfarve = []
 PrecisionFactor = 0.15
+ErrorMargin = 0.2
 ScoreList = []
 
 
     
 
 
-with Image.open("William/Min egen prototype/ParkeringspladsOriginal.JPG") as billede:
+with Image.open("William/ParkeringspladsOriginal.jpg") as billede:
     billede = billede.convert("RGB")  # Sikrer at vi arbejder i RGB
     bredde, højde = billede.size       # Gemmer bredde og højde i pixels (size er en attribut)
     PixelListe = []  # Tom liste til de nye pixels 
@@ -55,39 +57,31 @@ with Image.open("William/Min egen prototype/ParkeringspladsOriginal.JPG") as bil
     
     for i in KontrolPladsDict:
         Plads = KontrolPladsDict[i]
-        for x in Plads:
-            billede.getpixel
-            r, g, b = billede.getpixel((x, y))
-            PixelFarveKontrol = [r,g,b]
-            PixelListeKontrol.append(PixelFarve)
-        Pladsfarve.append(PixelListeKontrol)
+        for h in Plads:
+            r, g, b = billede.getpixel((h))
 
-    ObjectPosY = 0
+            PixelListeKontrolr.append(r)
+            PixelListeKontrolg.append(g)
+            PixelListeKontrolb.append(b)
+        PixelListeKontrol = [mean(PixelListeKontrolr), mean(PixelListeKontrolg), mean(PixelListeKontrolb)]
+        Pladsfarve.append(PixelListeKontrol)
+        
+
     for i in PladsNrpixelsDict:
         for x in PladsNrpixelsDict[i]:
-            pass
-        if(4 == 4):
-            Agenda = 1
-        else:
-            Agenda = 0
+            r, g, b = billede.getpixel((x))
+            ErrorCount = 0
+            PixelCount = 0
+            for Kontrol in Pladsfarve:
+                rScore = abs((r-Kontrol[0])/Kontrol[0])
+                gScore = abs((g-Kontrol[1])/Kontrol[1])
+                bScore = abs((b-Kontrol[2])/Kontrol[2])
+                FinalScore = (rScore+gScore+bScore)/3
+                if (FinalScore <= PrecisionFactor):
+                     ErrorCount = ErrorCount - 1
+                     break
+            ErrorCount +=  1
+            PixelCount +=  1
+        Agenda = (ErrorCount/PixelCount <= ErrorMargin) 
         Change_db(i,Agenda)
 
-
-
-        
-    
-
-
-        
-
-
-
-
-
-pygame.display.update()
-
-while True:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
