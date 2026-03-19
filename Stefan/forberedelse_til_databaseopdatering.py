@@ -1,8 +1,8 @@
 import sqlite3
 
 båsliste = [
-    {"AfstandFI": 54, "BLokationKode": "A1", "Ledig": 1, "Type": "almindelig"},
-    {"AfstandFI": 57, "BLokationKode": "A2", "Ledig": 1, "Type": "almindelig"},
+    {"AfstandFI": 54, "BLokationKode": "A1", "Ledig": 1, "Type": "handicap"},
+    {"AfstandFI": 57, "BLokationKode": "A2", "Ledig": 1, "Type": "handicap"},
     {"AfstandFI": 60, "BLokationKode": "A3", "Ledig": 1, "Type": "almindelig"},
     {"AfstandFI": 62, "BLokationKode": "A4", "Ledig": 1, "Type": "almindelig"},
     {"AfstandFI": 67, "BLokationKode": "A5", "Ledig": 1, "Type": "almindelig"},
