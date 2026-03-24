@@ -13,14 +13,14 @@ def get_db_connection():
     conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
     return conn
-
+PladsNrpixelsDict = []
 def Change_db(i,Agenda):
     conn= get_db_connection()
     conn.execute(
         f"""
         UPDATE ParkeringsDatabase
         SET Ledig = {Agenda}
-        WHERE {PladsNrpixelsDict[i]}
+        WHERE '{PladsNrpixelsDict[i]}'
         """
     )
     conn.commit() 
@@ -84,4 +84,4 @@ with Image.open("William/ParkeringspladsOriginal.jpg") as billede:
             PixelCount +=  1
         Agenda = (ErrorCount/PixelCount <= ErrorMargin) 
         Change_db(i,Agenda)
-
+print("Slut")

@@ -413,7 +413,7 @@ PladsNRpixelsDict = {
 }
 
 # analyser billedet og placer pixel koordinaterne i PladsNRpixelsDict hvis de har den rigtige farve.
-with Image.open("William/ParkeringspladsMedPladsOgAsfaltMarkering.JPG") as billede:
+with Image.open("William/Rød Parkeringsplads.png") as billede:
     billede = billede.convert("RGB")
     bredde, højde = billede.size
     for y in range(højde):
@@ -447,7 +447,7 @@ AsfaltOmrådepixelsDict = {
 }
 
 # analyser billedet og placer pixel koordinaterne i AsfaltOmrådepixelsDict hvis de har den rigtige farve.
-with Image.open("William/Parkeringsplads med asfalt- og pladsmarkering.jpg") as billede:
+with Image.open("William/Rød Parkeringsplads.png") as billede:
     billede = billede.convert("RGB")
     bredde, højde = billede.size
     for y in range(højde):
@@ -459,6 +459,7 @@ with Image.open("William/Parkeringsplads med asfalt- og pladsmarkering.jpg") as 
 import json
 with open("William/Min egen prototype/AsfaltOmrådepixelsDict.json", "w") as json_file:
     json.dump(AsfaltOmrådepixelsDict, json_file)
+print("færdig")
 
 
 
