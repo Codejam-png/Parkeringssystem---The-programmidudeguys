@@ -19,8 +19,8 @@ def Change_db(i,Agenda):
     conn.execute(
         f"""
         UPDATE ParkeringsDatabase
-        SET Ledig = {Agenda}
-        WHERE '{PladsNrpixelsDict[i]}'
+        SET Ledig = '{Agenda}'
+        WHERE BLokationKode = '{PladsNrpixelsDict[i]}'
         """
     )
     conn.commit() 
