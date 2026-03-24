@@ -82,6 +82,7 @@ with Image.open("William/ParkeringspladsOriginal.jpg") as billede:
                      break
             ErrorCount +=  1
             PixelCount +=  1
-        Agenda = (ErrorCount/PixelCount <= ErrorMargin) 
+        Agenda = 1 if (ErrorCount/PixelCount <= ErrorMargin) else 0
+        print(Agenda)
         Change_db(i,Agenda)
 print("Slut")
