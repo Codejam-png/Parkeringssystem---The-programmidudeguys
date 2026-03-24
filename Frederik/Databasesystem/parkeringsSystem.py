@@ -3,11 +3,13 @@ import sqlite3
 
 
 #DETTE ER SERVEREREN
-
+# skab et end point som klienten kan connecte til, og sende data frem og tilbage
 s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 s.bind((socket.gethostname(), 8080))
 s.listen(5)
+# programmet afventer en forbindelse fra klienten.
 
+    #funktion til at oprette forbindelse til databasen og returnere en connection object som kan bruges i andre funktioner
 def get_db_connection():
     conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
@@ -16,6 +18,7 @@ def get_db_connection():
 def send_notification(message, client_socket):    
      client_socket.send(bytes(message, "utf-8"))
 
+    #funktion til at finde den bedste plads baseret på brugerpræferencen og returnere en besked som kan sendes til klienten.
 def bedstePladsOgBesked(brugerpreference, conn):    
 
     if brugerpreference == "None":
@@ -72,11 +75,14 @@ def bedstePladsOgBesked(brugerpreference, conn):
 # programmet skal afvente input fra brugeren på internettet
 def main():
     while True:
+            # når en klient connecter til serveren, så accepters forbindelsen og der modtages data om clienten (client_socket, addresse og brugerpræference)
         client_socket, addr = s.accept()
         print(f"Forbundet til {addr}")
         conn = get_db_connection()
         brugerpreference = client_socket.recv(1024).decode("utf-8")
         print(f"Brugerpræference: {brugerpreference}")
+
+            #severen gennemsøger databasen for at finde den bedste plads baseret på brugerpræferencen, sender en notifikation tilbage til klienten og lukker forbindelsen.
         message = bedstePladsOgBesked(brugerpreference,conn)
         send_notification(message, client_socket)
         print(f"Sendt besked til {addr}: {message}")
