@@ -9,7 +9,7 @@ s.bind((socket.gethostname(), 8080))
 s.listen(5)
 
 def get_db_connection():
-    conn = sqlite3.connect("ParkeringsDatabase.db")
+    conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
     return conn
 

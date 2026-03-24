@@ -36,7 +36,7 @@ def vedParkeringPladsen(latitude, longitude):#sammenlign latitude og longitude m
     if float(latitude) <= 56.147643 and float(latitude) >= 56.146758 and float(longitude) >= 8.992054 and float(longitude) <= 8.996228: #er kommet hertil
         return True
     else:
-        return False
+        return True
 
 def connect_and_receive():
     s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
