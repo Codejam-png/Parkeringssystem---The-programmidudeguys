@@ -20,7 +20,7 @@ def Change_db(i,Agenda):
         f"""
         UPDATE ParkeringsDatabase
         SET Ledig = '{Agenda}'
-        WHERE BLokationKode = '{PladsNrpixelsDict[i]}'
+        WHERE BLokationKode = '{i}'
         """
     )
     conn.commit() 
