@@ -32,8 +32,9 @@ def locationdata():
     else:
         return flask.render_template('askforlocation.html', LOCmessage = "Du er udenfor rækkevidde")
 
+
 def vedParkeringPladsen(latitude, longitude):#sammenlign latitude og longitude med parkeringspladsens koordinater
-    if float(latitude) <= 56.147643 and float(latitude) >= 56.146758 and float(longitude) >= 8.992054 and float(longitude) <= 8.996228: #er kommet hertil
+    if float(latitude) <= 56.148 and float(latitude) >= 56.145 and float(longitude) >= 8.990488 and float(longitude) <= 8.996228: #er kommet hertil
         return True
     else:
         return True
@@ -50,7 +51,7 @@ def connect_and_receive():
             break
         full_msg += msg.decode("utf-8")
     print(full_msg)
-    return full_msg
     s.close()
+    return full_msg
 
 app.run(debug=True)

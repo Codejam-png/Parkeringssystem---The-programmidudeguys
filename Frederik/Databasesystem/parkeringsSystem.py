@@ -21,6 +21,7 @@ def send_notification(message, client_socket):
     #funktion til at finde den bedste plads baseret på brugerpræferencen og returnere en besked som kan sendes til klienten.
 def bedstePladsOgBesked(brugerpreference, conn):    
 
+    # hvis præferencen på en måde skulle være None gives der stadig svar
     if brugerpreference == "None":
         if conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone() != None: #Henter data fra databasen og ser om der findes noget på den prefererede plads som sql-sætningen definerer. Hvis der gør det så fortsæt, hvis ikke så sig "ingen plads" (i return sætningen)
             plads = conn.execute("SELECT BLokationKode FROM ParkeringsBås WHERE Type = 'almindelig' AND Ledig = 1 ORDER BY AfstandFI LIMIT 1;").fetchone()[0]
