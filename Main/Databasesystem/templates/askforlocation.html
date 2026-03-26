@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>parkeringsplads</title>
+    <script>
+       function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(succes,error);
+            } else{
+                alert("Geolocation is needed for this website to work.");
+            }
+       } 
+       function succes(position){
+            document.getElementById("latitude").value = position.coords.latitude;
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("locationForm").submit();
+       }
+       function error(){
+        alert("it no work boohoo :P");
+       }
+    </script>
+</head>
+<body>
+    <h1>Parkeringsplads</h1>
+
+    <p>Vælg preference for plads</p>
+    <form method="POST">
+        <input type="radio" id="almindelig" name="pladspref" value="Almindelig"> <!--radio buttons syntaks taget fra eksemplet heri https://www.w3schools.com/html/html_forms.asp-->
+        <label for="almindelig">Almindelig parkeringsplads</label><br>
+        <input type="radio" id="elbil" name="pladspref" value="Elbil">
+        <label for="elbil">Elbil parkeringsplads</label><br>
+        <input type="radio" id="handicap" name="pladspref" value="Handicap">
+        <label for="handicap">Handicapparkeringsplads</label> <br>
+        <button type="submit" name="submitknap" formaction="/">Gem preference</button>
+    </form>
+
+    <h1>Din gemte preference for pladstype er</h1><h2 style ="font-weight: bold; font-style: italic;"> {{ pladsprefHTML }}</h2>
+<br>
+    <button onclick="getLocation()" formaction="/locationdata">Find parkeringsplads</button><!--kører formen som spørger efter lokation og sender videre til locationdata og giver pladsen-->
+
+    <h1 style="color: red;">{{ LOCmessage }}</h1>
+
+    <form action="/locationdata" method="POST" id="locationForm">
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+    </form>
+</body>
+</html> <!--Få lokationsdata hentet og brugbart så vi kan få den til at sige "*WRONG BUZZER SOUND* Du er for langt væk" hvis man er for langt væk og "*DING CORREKT* Den nærmeste plads er..." når ens position er indenfor skolens koordinater-->
