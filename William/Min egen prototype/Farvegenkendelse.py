@@ -17,7 +17,7 @@ def Change_db(i,Agenda):
     conn= get_db_connection()
     conn.execute(
         f"""
-        UPDATE ParkeringsDatabase
+        UPDATE ParkeringsBås
         SET Ledig = '{Agenda}'
         WHERE BLokationKode = '{i}'
         """

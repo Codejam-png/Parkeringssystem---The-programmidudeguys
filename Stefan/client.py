@@ -6,7 +6,8 @@ import flask
 # når klientens gps kommer tæt på parkeringspladsen skal den connecte til serveren
 #https://www.youtube.com/watch?v=ZVfeIWk6974&t=578s
 
-
+d = socket.gethostname()
+print(d)
 #klienten connecter til serveren, sender preference og modtager den bedste plads.
 app = flask.Flask(__name__)
 
@@ -43,5 +44,6 @@ def connect_and_receive():
     print(full_msg)
     return full_msg
     s.close()
+
 
 app.run(debug=True)

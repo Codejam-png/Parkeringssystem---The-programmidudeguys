@@ -34,10 +34,10 @@ def locationdata():
 
 
 def vedParkeringPladsen(latitude, longitude):#sammenlign latitude og longitude med parkeringspladsens koordinater
-    if float(latitude) <= 56.148 and float(latitude) >= 56.145 and float(longitude) >= 8.990488 and float(longitude) <= 8.996228: #er kommet hertil
+    if float(latitude) <= 56.147890 and float(latitude) >= 56.146808 and float(longitude) >= 8.990583 and float(longitude) <= 8.995449: #er kommet hertil
         return True
     else:
-        return True
+        return False
 
 def connect_and_receive():
     s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)

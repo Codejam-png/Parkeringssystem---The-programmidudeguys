@@ -11,7 +11,7 @@ s.listen(5)
 
     #funktion til at oprette forbindelse til databasen og returnere en connection object som kan bruges i andre funktioner
 def get_db_connection():
-    conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
+    conn = sqlite3.connect("ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
     return conn
 
