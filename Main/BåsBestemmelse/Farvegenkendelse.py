@@ -9,7 +9,7 @@ class Object:
         self.colorG = G
         self.colorB = B
 def get_db_connection():
-    conn = sqlite3.connect("Stefan/ParkeringsDatabase.db")
+    conn = sqlite3.connect("ParkeringsDatabase.db")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -25,13 +25,13 @@ def Change_db(i,Agenda):
     conn.commit() 
     conn.close()
 
-with open("William/Min egen prototype/PladsNRpixelsDict.json", "r") as f:
+with open("Main/BåsBestemmelse/PladsNRpixelsDict.json", "r") as f:
     PladsNrpixelsDict = json.load(f)
-with open("William/Min egen prototype/AsfaltOmrådepixelsDict.json", "r") as g:
+with open("Main/BåsBestemmelse/AsfaltOmrådepixelsDict.json", "r") as g:
     KontrolPladsDict = json.load(g)
 
 Facitliste = [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,1,1,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,1,1,1,0,1,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,1,0,0,1,1,0,0,1,1]
-with Image.open("William/ParkeringspladsOriginal.jpg") as billede:
+with Image.open("Main/ParkeringspladsOriginal.jpg") as billede:
         billede = billede.convert("RGB")  # Sikrer at vi arbejder i RGB
         
         Pladsfarve = []
@@ -49,40 +49,49 @@ with Image.open("William/ParkeringspladsOriginal.jpg") as billede:
             PixelListeKontrol = [mean(PixelListeKontrolr), mean(PixelListeKontrolg), mean(PixelListeKontrolb)]
             Pladsfarve.append(PixelListeKontrol)
 
-def PladsBestemmelse(PrecisionFactor,ErrorMargin,Pladsfarve,billede):
+def PladsBestemmelse(PrecisionFactor,GrænseProcent,Pladsfarve,billede):
     AgendaList = []
     
     for PladsID in PladsNrpixelsDict:
-        ErrorCount = 0
+        FyldtPixel = 0
         PixelCount = 0
         for PixelPlacering in PladsNrpixelsDict[PladsID]:
             r, g, b = billede.getpixel((PixelPlacering))
             
             for Kontrol in Pladsfarve:
-                rScore = abs(r-Kontrol[0]) #Fjerner division da reletiv afvigelse er HELT forkert, da der regnes i absolut værdi
-                gScore = abs(g-Kontrol[1])
-                bScore = abs(b-Kontrol[2])
-                FinalScore = rScore+gScore+bScore
-
-                if (FinalScore <= PrecisionFactor):
-                    ErrorCount -= 1
+                rDiff = abs(r-Kontrol[0]) #Fjerner division da reletiv afvigelse er HELT forkert, da der regnes i absolut værdi
+                gDiff = abs(g-Kontrol[1])
+                bDiff = abs(b-Kontrol[2])
+                SamletDiff = rDiff+gDiff+bDiff
+                
+                if (SamletDiff <= PrecisionFactor):
+                    FyldtPixel -= 1
                     break
-            ErrorCount +=  1
+            FyldtPixel +=  1
             PixelCount +=  1
-        Agenda = 1 if (ErrorCount/PixelCount <= ErrorMargin) else 0
+        Agenda = 1 if (FyldtPixel/PixelCount <= GrænseProcent) else 0
         AgendaList.append(Agenda)
         
-        #Change_db(i,Agenda) Det kommer på i den endelige version, men nu skal der optimeres, så det gør bare programmet langsommere
+        Change_db(PladsID,Agenda) #Det kommer på i den endelige version, men nu skal der optimeres, så det gør bare programmet langsommere
     return AgendaList
-AgendaList = PladsBestemmelse(0.04,146,Pladsfarve,billede)
+AgendaList = PladsBestemmelse(146,0.04,Pladsfarve,billede)
 Score = 0
 Total = 0
+FejlListe = []
+ForkertTom = 0
+ForkertFyldt = 0
 for x in (AgendaList):
     if AgendaList[Total] == Facitliste[Total]:
         Score +=1
+    else:
+        FejlListe.append(Total)
+        if AgendaList[Total] < Facitliste[Total]:
+            ForkertFyldt += 1
+        else:
+            ForkertTom += 1
     Total +=1
-print(f"{Score} ud af {Total}")
-    
+#print(f"{Score} ud af {Total}, Liste: {AgendaList} FejlListe: {FejlListe} Forkert Fyldt: {ForkertFyldt} Forkert Tom: {ForkertTom}")
+print("Slut")
 
 
    

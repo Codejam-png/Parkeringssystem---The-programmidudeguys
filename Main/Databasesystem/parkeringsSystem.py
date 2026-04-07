@@ -6,6 +6,7 @@ import sqlite3
 # skab et end point som klienten kan connecte til, og sende data frem og tilbage
 s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
 s.bind((socket.gethostname(), 8080))
+print(f"{socket.gethostname()}")
 s.listen(5)
 # programmet afventer en forbindelse fra klienten.
 
