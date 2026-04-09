@@ -31,7 +31,7 @@ with open("Main/BåsBestemmelse/AsfaltOmrådepixelsDict.json", "r") as g:
     KontrolPladsDict = json.load(g)
 
 Facitliste = [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,1,1,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,1,1,1,0,1,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,1,0,0,1,1,0,0,1,1]
-with Image.open("Main/ParkeringspladsOriginal.jpg") as billede:
+with Image.open("Main/Billeder/ParkeringspladsOriginal.jpg") as billede:
         billede = billede.convert("RGB")  # Sikrer at vi arbejder i RGB
         
         Pladsfarve = []
